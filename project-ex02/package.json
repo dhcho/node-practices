@@ -1,0 +1,16 @@
+{
+  "name": "project-ex02",
+  "version": "1.0.0",
+  "main": "app-ex01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "douzone-dhcho-math": "file:../douzone-dhcho-math"
+  },
+  "devDependencies": {},
+  "description": ""
+}
