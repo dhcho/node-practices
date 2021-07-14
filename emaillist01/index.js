@@ -8,7 +8,7 @@ const port = 8080;
 // Application Setup
 const application = express()
     // 1. static serve
-    .use(express.static(path.join(__dirname + 'public')))
+    .use(express.static(path.join(__dirname, 'public')))
     // 2. request body parser
     .use(express.urlencoded({extended: true})) // application/x-www-form-urlencoded
     .use(express.json())                       // application/json
