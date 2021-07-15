@@ -10,7 +10,12 @@ dotenv.config({path: path.join(__dirname, 'config/db.env')});
 
 const mainRouter = require('./routes/main');
 const userRouter = require('./routes/user');
+const userApiRouter = require('./routes/user-api');
 const guestbookRouter = require('./routes/guestbook');
+// const errorRouter = require('./routes/error');
+
+// Logging
+const logger = require('./logging');
 
 // Application Setup
 const application = express()
@@ -36,13 +41,18 @@ const application = express()
     })
     .use('/', mainRouter)
     .use('/user', userRouter)
+    .use('/api/user', userApiRouter)
     .use('/guestbook', guestbookRouter)
-    .use((req, res) => res.render('error/404'));
+    // .use((req, res) => res.render('error/404'))
+    // 404 error
+    //.use(errorRoute.error404)
+    // 500 error
+    //.use(errorRoute.error500);
     
 // Server Setup
 http.createServer(application)
     .on('listening', function(){
-        console.info(`HttpServer running on port ${process.env.PORT}`);
+        logger.info(`HttpServer running on port ${process.env.PORT}`);
     })
     .on('error', function(error){
         if(error.syscall !== 'listen'){
@@ -51,11 +61,11 @@ http.createServer(application)
 
         switch(error.code){
             case 'EACCESS':
-                console.error(`Port:${process.env.PORT} requires privileges`);
+                logger.error(`Port:${process.env.PORT} requires privileges`);
                 process.exit(1);
                 break;
             case 'EADDRINUSE':
-                console.error(`Port:${process.env.PORT} is already in use`);
+                logger.error(`Port:${process.env.PORT} is already in use`);
                 process.exit(1);
                 break;
             default:

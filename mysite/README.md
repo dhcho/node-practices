@@ -12,6 +12,8 @@ $ npm i dotenv
 $ npm i sequelize
 $ npm i mysql2
 $ npm i moment
+$ npm i winston
+$ npm i winston-daily-rotate-file
 $ npm i -D nodemon
 
 ## scripts in package-json
@@ -36,6 +38,8 @@ $ npm i -D nodemon
     |--- package-lock.json
     |--- /node-modules
     |--- /config
+    |--- /logging
+    |--- /logs
     |--- /public
     |--- /routes
     |--- /controllers

@@ -1,3 +1,4 @@
+const logger = require('../logging');
 const models = require('../models');
 
 module.exports = {
@@ -49,7 +50,7 @@ module.exports = {
     update: function(req, res){
         res.render('user/update');
     },
-    _update: async function(req, res){
+    _update: async function(req, res, next){
         const result = await models.User.update(
             {name: req.body.name,
             password: req.body.password,
@@ -60,7 +61,10 @@ module.exports = {
         }).then(result => {
             res.redirect('/');
         }).catch(err => {
+            // err.name, err.message, err.stack
+            // logger.error(err.stack);
             console.error(err);
+            next(err);
         });
     }
 }
