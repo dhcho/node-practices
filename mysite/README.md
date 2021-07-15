@@ -11,6 +11,7 @@ $ npm i ejs
 $ npm i dotenv
 $ npm i sequelize
 $ npm i mysql2
+$ npm i moment
 $ npm i -D nodemon
 
 ## scripts in package-json

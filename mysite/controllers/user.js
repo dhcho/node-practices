@@ -22,7 +22,7 @@ module.exports = {
     },
     _login: async function(req, res){
         const user = await models.User.findOne({
-            attributes: ['no', 'name', 'email', 'role', 'gender'],
+            attributes: ['no', 'name', 'email', 'password', 'role', 'gender'],
             where: {
                 email: req.body.email,
                 password: req.body.password

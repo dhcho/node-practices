@@ -3,7 +3,7 @@ const models = require('../models');
 module.exports = {
     index: async function(req, res){
         const results = await models.Guestbook.findAll({
-            attributes: ['no', 'name', 'password', 'message', 'reg_date'],
+            attributes: ['no', 'name', 'password', 'message', 'regDate'],
             order: [
                 ['no', 'DESC']
             ]
@@ -27,9 +27,9 @@ module.exports = {
         });
     },
     _delete: async function(req, res){
-        const results = await models.Guestbook.destroy(
+        const result = await models.Guestbook.destroy(
             {where: {
-                no: req.params.no,
+                no: req.body.no,
                 password: req.body.password
             }
         }).then(result => {
