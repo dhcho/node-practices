@@ -4,6 +4,7 @@
 $ npm init -y
 
 ## 설치패키지
+```
 $ npm i express
 $ npm i express-session
 $ npm i ejs
@@ -16,7 +17,9 @@ $ npm i winston
 $ npm i winston-daily-rotate-file
 $ npm i -D nodemon
 
+
 ## scripts in package-json
+```
 .
 .
 .
@@ -27,7 +30,7 @@ $ npm i -D nodemon
 .
 .
 .
-'''
+
 
 ## project structure
 <pre>
