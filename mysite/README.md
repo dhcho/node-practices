@@ -17,7 +17,6 @@ $ npm i winston
 $ npm i winston-daily-rotate-file
 $ npm i -D nodemon
 
-
 ## scripts in package-json
 ```
 .
@@ -30,7 +29,7 @@ $ npm i -D nodemon
 .
 .
 .
-
+```
 
 ## project structure
 <pre>
