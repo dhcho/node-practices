@@ -1,17 +1,20 @@
-module.exports = function(req, res, next){
-    if(req.session.authUser == null){
-        next();
-        return;
-    }
+module.exports = function(role){
+    return function(req, res, next) {
+        if(req.session.authUser && 
+            (role !== 'ADMIN' || req.session.authUser.role === 'ADMIN')){
+            next();
+            return;
+        }
 
-    if(req.accepts('html')){
-        next();
-        return;
-    }
+        if(req.accepts('html')){
+            res.redirect(req.session.authUser ? '/' : '/user');
+            return;
+        }
 
-    res.send({
-        result: "fail",
-        data: null,
-        message: "auth failed"
-    })
+        res.send({
+            result: "fail",
+            data: null,
+            message: "auth failed"
+        });
+    }
 }

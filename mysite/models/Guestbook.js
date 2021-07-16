@@ -16,8 +16,7 @@ module.exports = function(sequelize){
         password: {
             field: 'password',
             type: DataTypes.STRING(45),
-            allowNull: false,
-            defaultValue: Sequelize.NOW
+            allowNull: false
         },
         message: {
             field: 'message',
@@ -28,6 +27,7 @@ module.exports = function(sequelize){
             field: 'reg_date',
             type: DataTypes.DATE,
             allowNull: false,
+            defaultValue: Sequelize.NOW
         }
     }, {
         underscored: true,

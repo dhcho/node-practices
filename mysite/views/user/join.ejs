@@ -26,8 +26,6 @@
 					console.error(status, e);
 				},
 				success:function(response) {
-					console.log(response);
-					
 					if(response.result != 'success') {
 						console.error(response.message);
 						return;
@@ -53,14 +51,14 @@
 		<%- include('../includes/header') %>
 		<div id="content">
 			<div id="user">
-
 				<form id="join-form" name="joinForm" method="post" action="/user/join">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="">
 
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
-					<input type="button" value="id 중복체크">
+					<input type="button" id="btn-check" value="id 중복체크">
+					<img id="img-check" src="/assets/images/check.png" style="width:18px; vertical-align: bottom; display: none"/>
 					
 					<label class="block-label">패스워드</label>
 					<input name="password" type="password" value="">
@@ -78,7 +76,6 @@
 					</fieldset>
 					
 					<input type="submit" value="가입하기">
-					
 				</form>
 			</div>
 		</div>

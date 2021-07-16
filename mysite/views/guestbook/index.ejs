@@ -28,24 +28,24 @@
 				</form>
 
 				<ul>
-					<%
-					for(let i = 0; i < list.length; i++){
-						const vo = list[i];
+					<% 
+						const count = guestbooks.length;
+						guestbooks.forEach(function(guestbook, index) {
 					%>
 						<li>
 							<table>
 								<tr>
-									<td><%=vo.no %></td>
-									<td><%=vo.name %></td>
-									<td><%=vo.regDate %></td>
-									<td><a href="/guestbook/delete/<%=vo.no %>">삭제</a></td>
+									<td>[<%=count-index %>]</td>
+									<td><%=guestbook.name %></td>
+									<td><%=moment(guestbook.regDate).format('YYYY-MM-DD hh:mm:ss') %></td>
+									<td><a href="/guestbook/delete/<%=guestbook.no %>">삭제</a></td>
 								</tr>
 								<tr>
-									<td colspan=4><%=vo.message.replace(/\n/gi, "<br/>")%></td>
+									<td colspan=4><%=guestbook.message.replace(/\n/gi, "<br/>")%></td>
 								</tr>
 							</table> <br/>
 						</li>
-					<% } %>
+					<% }) %>
 				</ul>
 			</div>
 		</div>
