@@ -43,5 +43,12 @@ module.exports = {
         } catch(e) {
             next(e);
         }
+    },
+    spa: async function(req, res, next){
+        try{
+            res.render('guestbook/spa-rending');
+        } catch(e) {
+            next(e);
+        }
     }
 }
