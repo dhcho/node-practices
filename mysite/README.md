@@ -15,6 +15,9 @@ $ npm i multer
 $ npm i moment
 $ npm i winston
 $ npm i winston-daily-rotate-file
+
+$ npm i -D mocha
+$ npm i -D chai
 $ npm i -D nodemon
 ```
 
@@ -25,6 +28,7 @@ $ npm i -D nodemon
 .
   "scripts": {
     "start": "node index.js",
+    "test": "npx mocha",
     "debug": "nodemon index.js"
   },
 .
