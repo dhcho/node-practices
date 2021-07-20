@@ -44,35 +44,24 @@
 
 					<% }) %>
 				</table>
+				
+				<!-- pager 추가 -->
+				<div class="pager">
+					<ul>
+						<li><a href="/board/list/1">◀</a></li>
+						<% for(var index = 1; index <= pageCount; index++) { %>
+							<li><a href="/board/list/<%=index %>"><%=index %></a></li>
+						<% } %>
+						<li><a href="/board/list/<%=count %>">▶</a></li>
+					</ul>
+				</div>
+
 				<% if(req.session.authUser) { %>
 					<div class="bottom">
 						<a href="/board/write" id="new-book">글쓰기</a>
 					</div>
 				<% } %>
-
-				<!-- pager 추가 -->
-				<!--
-				<c:set var="count" value="${count }" />
-				<div class="pager">
-					<ul>
-						<li><a href="/board/list/1">◀</a></li>
-						<c:forEach begin="1" end="${count }" step="1" varStatus="status">
-							<li><a href="/board/list/${status.index }">${status.index }</a></li>
-						</c:forEach>
-						<li><a href="/board/list/${ count}">▶</a></li>
-					</ul>
-				</div>
-
-				<c:choose>
-					<c:when test="${empty authUser }">
-					</c:when>
-					<c:otherwise>
-						<div class="bottom">
-							<a href="/board/write" id="new-book">글쓰기</a>
-						</div>
-					</c:otherwise>
-				</c:choose>
-				-->
+				
 			</div>
 		</div>
 		<%- include('../includes/navigation') %>

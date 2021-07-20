@@ -3,9 +3,9 @@ const moment = require('moment');
 const sequelize = require('sequelize');
 
 module.exports = {
-    list: async function(req, res, next){
+    index: async function(req, res, next){
         try{
-            const startPage = 1;
+            const startPage = 0;
             const onePageCnt = 10;
             const results = await models.Board.findAll({
                 attributes: ['no', 'title', 'contents', 'regDate', 'hit', 'groupNo', 'orderNo', 'depth'],
@@ -21,11 +21,42 @@ module.exports = {
                 limit: onePageCnt
             });
             let count = await models.Board.count();
-            count = Math.ceil(count/onePageCnt);
+            let pageCount = Math.ceil(count/onePageCnt);
 
             res.render('board/list', {
                 list: results,
-                count: count,
+                pageCount: pageCount,
+                moment: moment
+            });
+        } catch(e) {
+            next(e);
+        }
+    },
+    list: async function(req, res, next){
+        try{
+            let startPage = 1;
+            const onePageCnt = 10;
+            startPage = (req.params.pageNo - 1) * onePageCnt;
+
+            const results = await models.Board.findAll({
+                attributes: ['no', 'title', 'contents', 'regDate', 'hit', 'groupNo', 'orderNo', 'depth'],
+                order: [
+                    ['no', 'DESC']
+                ],
+                include: {
+                    model: models.User,
+                    attributes: ['no', 'name'],
+                    required: true // DB Table Inner join
+                },
+                offset: startPage,
+                limit: onePageCnt
+            });
+            let count = await models.Board.count();
+            let pageCount = Math.ceil(count/onePageCnt);
+
+            res.render('board/list', {
+                list: results,
+                pageCount: pageCount,
                 moment: moment
             });
         } catch(e) {

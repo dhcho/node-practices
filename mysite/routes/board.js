@@ -3,7 +3,8 @@ const authorized = require('./authorized');
 const controller = require('../controllers/board');
 
 const router = express.Router();
-router.route("/").get(controller.list);
+router.route("/").get(controller.index);
+router.route("/list/:pageNo").get(controller.list);
 router.route("/write").get(controller.write);
 router.route("/write").post(controller._write);
 router.route("/view/:no").get(controller.view);
