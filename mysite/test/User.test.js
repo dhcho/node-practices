@@ -11,7 +11,7 @@ describe('Model User', function(){
         models = require('../models');
     });
 
-    INET('Test!!!!!', async function(){
+    INET('Fetch User(no=1)', async function(){
         const user = await models.User.findOne({
             where: {
                 no: 1

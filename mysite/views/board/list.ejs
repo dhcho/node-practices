@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>mysite</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="container">
+		<%- include('../includes/header') %>
+		<div id="content">
+			<div id="board">
+				<form id="search_form" action="/board/listFind" method="post">
+					<input type="text" id="kwd" name="kwd" value=""> 
+					<input type="submit" value="찾기">
+				</form>
+				<table class="tbl-ex">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>조회수</th>
+						<th>작성일</th>
+						<th>&nbsp;</th>
+					</tr>
+					<% 
+						const count = list.length;
+						list.forEach(function(board, index) {
+					%>
+						<tr>
+							<td><%=count-index %></td>
+							<td class="left" style="text-align:left">
+								<a href="/board/view/<%=board.no %>"><%=board.title %></a>
+							</td>
+							<td><%=board.User.name %></td>
+							<td><%=board.hit %></td>
+							<td><%=moment(board.regDate).format('YYYY-MM-DD hh:mm:ss') %></td>
+							<% if(req.session.authUser) { %>
+								<% if(board.User.no === req.session.authUser.no) { %>
+									<td><a href="/board/delete/<%=board.no %>" class="del" style='background-image:url("/assets/images/recycle.png")'>삭제</a></td>
+								<% } %>
+							<% } %>
+						</tr>
+
+					<% }) %>
+				</table>
+				<% if(req.session.authUser) { %>
+					<div class="bottom">
+						<a href="/board/write" id="new-book">글쓰기</a>
+					</div>
+				<% } %>
+
+				<!-- pager 추가 -->
+				<!--
+				<c:set var="count" value="${count }" />
+				<div class="pager">
+					<ul>
+						<li><a href="/board/list/1">◀</a></li>
+						<c:forEach begin="1" end="${count }" step="1" varStatus="status">
+							<li><a href="/board/list/${status.index }">${status.index }</a></li>
+						</c:forEach>
+						<li><a href="/board/list/${ count}">▶</a></li>
+					</ul>
+				</div>
+
+				<c:choose>
+					<c:when test="${empty authUser }">
+					</c:when>
+					<c:otherwise>
+						<div class="bottom">
+							<a href="/board/write" id="new-book">글쓰기</a>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				-->
+			</div>
+		</div>
+		<%- include('../includes/navigation') %>
+		<%- include('../includes/footer') %>
+	</div>
+</body>
+</html>
