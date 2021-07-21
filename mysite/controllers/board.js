@@ -10,7 +10,8 @@ module.exports = {
             const results = await models.Board.findAll({
                 attributes: ['no', 'title', 'contents', 'regDate', 'hit', 'groupNo', 'orderNo', 'depth'],
                 order: [
-                    ['no', 'DESC']
+                    ['groupNo', 'DESC'],
+                    ['order_no', 'ASC']
                 ],
                 include: {
                     model: models.User,
@@ -34,14 +35,24 @@ module.exports = {
     },
     list: async function(req, res, next){
         try{
+            const Op = sequelize.Op;
+
+            let kwd = req.body.kwd || '';
+            let page = req.params.pageNo || 1;
             let startPage = 1;
             const onePageCnt = 10;
-            startPage = (req.params.pageNo - 1) * onePageCnt;
+            startPage = (page - 1) * onePageCnt;
 
             const results = await models.Board.findAll({
                 attributes: ['no', 'title', 'contents', 'regDate', 'hit', 'groupNo', 'orderNo', 'depth'],
+                where:{
+                    title: {
+                        [Op.like]: "%" + kwd + "%"
+                    }
+                },
                 order: [
-                    ['no', 'DESC']
+                    ['groupNo', 'DESC'],
+                    ['order_no', 'ASC']
                 ],
                 include: {
                     model: models.User,
@@ -51,7 +62,13 @@ module.exports = {
                 offset: startPage,
                 limit: onePageCnt
             });
-            let count = await models.Board.count();
+            let count = await models.Board.count({
+                where:{
+                    title: {
+                        [Op.like]: "%" + kwd + "%"
+                    }
+                }
+            });
             let pageCount = Math.ceil(count/onePageCnt);
 
             res.render('board/list', {
@@ -76,11 +93,44 @@ module.exports = {
                 orderNo: 0,
                 depth: 0,
                 userNo: req.session.authUser.no
-        }).then(result => {
-            res.redirect('/board');
-        }).catch(e => {
-            next(e);
         });
+            
+        const data = await models.Board.update(
+            {groupNo: result.no}, {
+            where: {no: result.no}  
+        });
+
+        res.redirect('/board');
+    },
+    writeReply: function(req, res){
+        res.render('board/writereply', {
+            groupNo: req.params.groupNo
+        });
+    },
+    _writeReply: async function(req, res, next){
+        try{
+            const data = await models.Board.findOne({
+                attributes: ['orderNo', 'depth'],
+                where: {no: req.body.groupNo}
+            });
+
+            const result = await models.Board.create(
+            {
+                    title: req.body.title,
+                    contents: req.body.content,
+                    hit: 0,
+                    groupNo: req.body.groupNo,
+                    orderNo: data.orderNo + 1,
+                    depth: data.depth + 1,
+                    userNo: req.session.authUser.no
+            }).then(result => {
+                res.redirect('/board');
+            }).catch(e => {
+                next(e);
+            });
+        } catch(e) {
+            next(e);
+        }
     },
     view: async function(req, res, next){
         try{

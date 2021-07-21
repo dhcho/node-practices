@@ -27,17 +27,17 @@ module.exports = function(sequelize){
         hit: {
             field: 'hit',
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: false
         },
         groupNo: {
             field: 'group_no',
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: true
         },
         orderNo: {
             field: 'order_no',
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: true
         },
         depth: {
             field: 'depth',

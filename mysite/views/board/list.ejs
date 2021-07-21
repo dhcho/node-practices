@@ -10,7 +10,7 @@
 		<%- include('../includes/header') %>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="/board/listFind" method="post">
+				<form id="search_form" action="/board/search" method="post">
 					<input type="text" id="kwd" name="kwd" value=""> 
 					<input type="submit" value="찾기">
 				</form>
@@ -29,9 +29,16 @@
 					%>
 						<tr>
 							<td><%=count-index %></td>
-							<td class="left" style="text-align:left">
-								<a href="/board/view/<%=board.no %>"><%=board.title %></a>
-							</td>
+							<% if(board.depth > 0) { %>
+								<td class="left" style="text-align:left; padding-left:20px">
+									<img src="/assets/images/reply.png">
+									<a href="/board/view/<%=board.no %>"><%=board.title %></a>
+								</td>
+							<% } else { %>
+								<td class="left" style="text-align:left">
+									<a href="/board/view/<%=board.no %>"><%=board.title %></a>
+								</td>
+							<% } %>
 							<td><%=board.User.name %></td>
 							<td><%=board.hit %></td>
 							<td><%=moment(board.regDate).format('YYYY-MM-DD hh:mm:ss') %></td>
@@ -52,7 +59,7 @@
 						<% for(var index = 1; index <= pageCount; index++) { %>
 							<li><a href="/board/list/<%=index %>"><%=index %></a></li>
 						<% } %>
-						<li><a href="/board/list/<%=count %>">▶</a></li>
+						<li><a href="/board/list/<%=pageCount %>">▶</a></li>
 					</ul>
 				</div>
 
