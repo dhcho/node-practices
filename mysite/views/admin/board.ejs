@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div id="container">
-		<%-include("../includes/header") %>
+		<%-include("./includes/header") %>
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-form">
@@ -16,9 +16,7 @@
 
 				</div>
 			</div>
-			<%-include("../includes/navigation") %>
-				<c:param name="menu" value="board"/>
-			</c:import>
+			<%-include("./includes/navigation", {menu: 'board'}) %>
 		</div>
 	</div>
 </body>
