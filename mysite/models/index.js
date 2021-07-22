@@ -14,6 +14,7 @@ const User = require('./User')(sequelize);
 const Guestbook = require('./Guestbook')(sequelize);
 const Gallery = require('./Gallery')(sequelize);
 const Board = require('./Board')(sequelize);
+const Site = require('./Site')(sequelize);
 
 User.hasMany(Board, {
     foreignKey: {
@@ -41,5 +42,9 @@ Board.sync({
     force: process.env.TABLE_CREATE_ALWAYS === 'true',
     alter: process.env.TABLE_ALTER_SYNC === 'true'
 });
+Site.sync({
+    force: process.env.TABLE_CREATE_ALWAYS === 'true',
+    alter: process.env.TABLE_ALTER_SYNC === 'true'
+});
 
-module.exports = { User, Guestbook, Gallery, Board }
+module.exports = { User, Guestbook, Gallery, Board, Site }
