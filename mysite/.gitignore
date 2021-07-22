@@ -1,3 +1,4 @@
 /logs
 /multer-temporary-store
 */assets/gallery
+**/upload-images
